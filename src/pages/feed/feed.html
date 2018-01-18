@@ -14,40 +14,35 @@
 
 
 <ion-content padding>
-  <ion-card>
+  <ion-card *ngFor="let filme of lista_filmes">
 
     <ion-item>
       <ion-avatar item-start>
         <img src={{objeto_feed.imagem_avatar}}>
       </ion-avatar>
-      <h2 class="feed_title">{{objeto_feed.titulo}}</h2>
-      <p class="feed_date">{{objeto_feed.data}}</p>
+      <h2 class="feed_title">{{filme.title}}</h2>
+      <p class="feed_date">{{filme.release_date}}</p>
     </ion-item>
 
-    <img src={{objeto_feed.imagem_src}}>
+    <img class="feed_poster_image" src={{baseUrlPoster}}{{filme.backdrop_path}}>
 
     <ion-card-content>
-      <p>{{objeto_feed.descricao}}</p>
+      <p>{{filme.overview}}</p>
     </ion-card-content>
 
     <ion-row>
       <ion-col>
         <button ion-button icon-left clear small>
           <ion-icon name="thumbs-up"></ion-icon>
-          <div>{{objeto_feed.likes}} Like(s)</div>
+          <div>{{filme.vote_count}} Vote(s)</div>
         </button>
       </ion-col>
       <ion-col>
         <button ion-button icon-left clear small>
-          <ion-icon name="text"></ion-icon>
-          <div>{{objeto_feed.comments}} Comment(s)</div>
+          <ion-icon name="star"></ion-icon>
+          <div> {{filme.vote_average}} </div>
         </button>
-      </ion-col>
-      <ion-col center text-center>
-        <ion-note>
-          {{objeto_feed.time_comments}}
-        </ion-note>
-      </ion-col>
+      </ion-col>      
     </ion-row>
 
   </ion-card>

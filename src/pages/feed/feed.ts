@@ -23,7 +23,9 @@ export class FeedPage {
     time_comments: "11h ago"
   }
 
-public lista_filmes = new Array<any>();
+  public lista_filmes = new Array<any>();
+  //public baseUrlPoster = "https://image.tmdb.org/t/p/w185_and_h278_bestv2/";
+  public baseUrlPoster = "https://image.tmdb.org/t/p/w500";
 
   public nome_usuario: string = "Diego Araujo";
 
