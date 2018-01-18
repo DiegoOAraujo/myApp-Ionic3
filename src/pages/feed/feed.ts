@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { MovieProvider } from '../../providers/movie/movie';
+import { LoadingController } from 'ionic-angular/components/loading/loading-controller';
 
 @IonicPage()
 @Component({
@@ -29,26 +30,63 @@ export class FeedPage {
 
   public nome_usuario: string = "Diego Araujo";
 
+  public loader;
+  public refresher;
+  public isRefreshing: boolean = false;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private movieProvider: MovieProvider
+    private movieProvider: MovieProvider,
+    public loadingCtrl: LoadingController
   ) {
   }
+
+  abreCarregando() {
+    this.loader = this.loadingCtrl.create({
+      content: "Aguarde, Carregando...",
+    });
+    this.loader.present();
+  }
+
+  fechaCarregando() {
+    this.loader.dismiss();
+  }
+
+  doRefresh(refresher) {
+    this.refresher = refresher;
+    this.isRefreshing = true;
+    this.carregarFilmes();
+  }
+
 
   public somaDoisNumeros(num1: number, num2: number): void {
     alert(num1 + num2);
   }
 
-  ionViewDidLoad() {
-    //this.somaDoisNumeros(10, 99);
+  ionViewDidEnter() {
+    this.carregarFilmes();
+  }
+
+  carregouFilmes() {
+    this.fechaCarregando();
+    if (this.isRefreshing) {
+      this.refresher.complete();
+      this.isRefreshing = false;
+    }
+  }
+
+  carregarFilmes() {
+    this.abreCarregando();
     this.movieProvider.getLatestMovies().subscribe(
       data => {
         const response = (data as any);
         this.lista_filmes = response.results;
         console.log(data);
+        this.carregouFilmes();
       }, error => {
         console.log(error);
+        this.carregouFilmes();
       }
     )
   }
