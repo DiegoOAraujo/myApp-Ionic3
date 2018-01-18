@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { MovieProvider } from '../../providers/movie/movie';
 import { LoadingController } from 'ionic-angular/components/loading/loading-controller';
+import { FilmeDetalhesPage } from '../filme-detalhes/filme-detalhes';
 
 @IonicPage()
 @Component({
@@ -76,9 +77,14 @@ export class FeedPage {
     }
   }
 
+  abrirDetalhes(filme){
+    console.log(filme);
+    this.navCtrl.push(FilmeDetalhesPage, {id: filme.id});
+  }
+
   carregarFilmes() {
     this.abreCarregando();
-    this.movieProvider.getLatestMovies().subscribe(
+    this.movieProvider.getPopularMovies().subscribe(
       data => {
         const response = (data as any);
         this.lista_filmes = response.results;

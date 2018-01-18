@@ -7,16 +7,16 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Feed</ion-title>
+    <ion-title>Feed TMDb Popular</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-    <ion-refresher (ionRefresh)="doRefresh($event)">
-        <ion-refresher-content></ion-refresher-content>
-      </ion-refresher>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <ion-card *ngFor="let filme of lista_filmes">
 
     <ion-item>
@@ -45,8 +45,8 @@
           <ion-icon name="star"></ion-icon>
           <div> {{filme.vote_average}} </div>
         </button>
-      </ion-col>      
+      </ion-col>
     </ion-row>
-
+<button ion-button block (click)="abrirDetalhes(filme)">Detalhes</button>
   </ion-card>
 </ion-content>
